@@ -1,19 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Budget_APP.Data;
+﻿using Budget_APP.Context;
 using Budget_APP.Models.DataBase;
-
-
+using Budget_APP.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Budget_APP.Repositories
 {
-    public class BaseRepositories : IBaseRepositories
+    public class ProfileRepositories : IProfileRepositories
     {
         private readonly ApplicationDbContext _context;
-        public BaseRepositories(ApplicationDbContext context)
+        public ProfileRepositories(ApplicationDbContext context)
         {
             _context = context;
         }
-
         public async Task<IEnumerable<Profile>> GetAllProfilesAsync()
         {
             return await _context.Profiles.ToListAsync();
@@ -21,8 +19,9 @@ namespace Budget_APP.Repositories
         public async Task<Profile> GetProfileByIdAsync(int id)
         {
             var profile = await _context.Profiles.FindAsync(id);
-            return profile == null ? throw new KeyNotFoundException($"Profile with id {id} not found.") : profile;
+            return profile ?? throw new KeyNotFoundException($"Profile with id {id} not found.");
         }
+
         public async Task<Profile> AddProfileAsync(Profile profile)
         {
             await _context.Profiles.AddAsync(profile);
@@ -50,9 +49,5 @@ namespace Budget_APP.Repositories
             return profile;
         }
 
-        public Task<IEnumerable<Profile>> GetallProfilesAsnc()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

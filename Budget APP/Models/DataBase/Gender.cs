@@ -7,5 +7,7 @@ namespace Budget_APP.Models.DataBase
     {
         public int GenderId { get; set; }
         public required string Name { get; set; }
+
+        public required ICollection<Gender> Profiles { get; set; }
     }
 }

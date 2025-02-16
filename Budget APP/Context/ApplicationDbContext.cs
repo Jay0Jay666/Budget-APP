@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Budget_APP.Models.DataBase;
 
-namespace Budget_APP.Data
+namespace Budget_APP.Context
 {
     public class ApplicationDbContext : DbContext
     {
@@ -11,5 +11,7 @@ namespace Budget_APP.Data
         }
 
         public required DbSet<Profile> Profiles { get; set; }
+        public required DbSet<Gender> Genders { get; set; }
+
     }
 }
